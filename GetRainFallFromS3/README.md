@@ -1,9 +1,9 @@
-# lambda-waterLevelAPI
+# lambda-raniFallAPI
 
 ## Overview
 現在の降水量を返します。  
 データは10分毎に更新されます。  
-データは20分前の観測データになります。  
+データは30分前の観測データになります。  
 
 ## Request
 Method : GET  
