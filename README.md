@@ -1,21 +1,24 @@
-# lambda-waterLevelAPI
+# lambda-rainFallAPI
 
 ## Overview
 現在の降水量を返します。  
 データは10分毎に更新されます。  
-データは20分前の観測データになります。  
+データは30分前の観測データになります。  
 
 ## Request
 Method : GET  
-Endpoint : /production/rain-fall  
-Parameter : ComingSoon  
+Endpoint : /production/rain-fall?country="japana"&prefectures="tokyo"&river="arakawa"  
+Parameter :   
+1. country : 国名
+2. prefectures : 都道府県
+3. river : 河川名
 
 ## Response
 
 以下の Json を返します。
 ~~~
 {
-  "timestamp": "2017-08-12-12-50"
+  "timestamp": "2017-08-12T12:50:00"
   "observation": "石川県金沢市"
   "rainFall": "0.0"
 }
