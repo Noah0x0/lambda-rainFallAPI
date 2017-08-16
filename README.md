@@ -18,12 +18,12 @@ Parameter :
 以下の Json を返します。
 ~~~
 {
-  "timestamp": "2017-08-12T12:50:00"
-  "observation": "石川県金沢市"
+  "timestamp": "2017-08-12T12:50:00",
+  "observation": "石川県金沢市",
   "rainFall": "0.0"
 }
 ~~~
 
 timestamp : 観測時点の日時  
 observation : 観測地点  
-rainFall : 観測時点の降雨量  
+rainFall : 観測時点の降雨量[mm]  
