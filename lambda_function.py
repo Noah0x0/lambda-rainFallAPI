@@ -1,6 +1,7 @@
 import json
 import urllib.parse
 import boto3
+import datetime
 
 bucket = 'test-uodu-s3'
 target = 'rainFall'
@@ -27,9 +28,20 @@ def get_rainfall(target_key):
     response = client.get_object(Bucket=bucket, Key=target_key)
 
     body = response['Body'].read().decode('utf-8')
-    json_dict = json.loads(body)
+    #json_dict = json.loads(body)
         
-    return json_dict
+    return json.dumps(body)
+
+def set_response_body(status_code, body):
+    headers = {}
+    headers['Content-Type'] = 'application/json'
+
+    res_body = {}
+    res_body['statusCode'] = status_code
+    res_body['headers'] = headers
+    res_body['body'] = body
+    
+    return res_body
 
 def lambda_handler(event, context):
     # prefix用に年月取得
@@ -37,23 +49,28 @@ def lambda_handler(event, context):
     year = str(now.strftime('%Y'))
     month = str(now.strftime('%m'))
 
-    # パラメータが不正な場合のデフォルトを荒川に
-    if (set(event) >= {'country', 'prefectures', 'river'}):
-        country = event['country'] if len(event['country']) != 0 else 'japan'
-        prefectures = event['prefectures'] if len(event['prefectures']) != 0 else 'tokyo'
-        river = event['river'] if len(event['river']) != 0 else 'arakawa'
+    # クエリが渡されてない場合
+    if (event['queryStringParameters'] is None):
+        return set_response_body(400, 'Bad Request')
+    else:
+        params = event['queryStringParameters']
+        
+    # クエリパラメータが不正な場合のデフォルトを荒川に
+    if (set(params) >= {'country', 'prefectures', 'river'}):
+        country = params['country']
+        prefectures = params['prefectures']
+        river = params['river'] if len(params['river']) != 0 else 'arakawa'
         prefix = target + '/' + country + '/' + prefectures + '/' + river + '/' + year + '/' + month + '/'
     else:
-        prefix = 'rainFall/japan/tokyo/arakawa/' + year + '/' + month + '/'
+        return set_response_body(400, 'Bad Request')
     
     try:
         # 最新のファイル名を取得
         target_key = get_latest_keyname(prefix)
         # ファイル名をkeyとしてS3からデータ取得
-        json_dict = get_rainfall(target_key)
+        json_str = get_rainfall(target_key)
         
-        return json_dict
+        return set_response_body(200, json_str)
     except Exception as e:
         print(e)
-        # print('Error getting object {} from bucket {}. Make sure they exist and your bucket is in the same region as this function.'.format(key, bucket))
-        return 'InternalServerError'
+        return set_response_body(400, 'Bad Request')

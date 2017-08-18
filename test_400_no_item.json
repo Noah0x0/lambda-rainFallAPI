@@ -1,0 +1,6 @@
+{
+  "queryStringParameters": {
+    "country": "taiwan",
+    "prefectures": "Taipei"
+  }
+}
