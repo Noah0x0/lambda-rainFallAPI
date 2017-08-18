@@ -59,7 +59,7 @@ def lambda_handler(event, context):
     if (set(params) >= {'country', 'prefectures', 'river'}):
         country = params['country']
         prefectures = params['prefectures']
-        river = params['river'] if len(params['river']) != 0 else 'arakawa'
+        river = params['river']
         prefix = target + '/' + country + '/' + prefectures + '/' + river + '/' + year + '/' + month + '/'
     else:
         return set_response_body(400, 'Bad Request')
