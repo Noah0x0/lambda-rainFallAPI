@@ -7,7 +7,7 @@
 
 ## Request
 Method : GET  
-Endpoint : /production/rain-fall?country="japana"&prefectures="tokyo"&river="arakawa"  
+Endpoint : /production/rain-fall?country="japan"&prefectures="tokyo"&river="arakawa"  
 Parameter :   
 1. country : 国名
 2. prefectures : 都道府県
