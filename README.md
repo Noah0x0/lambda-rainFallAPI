@@ -24,6 +24,6 @@ Parameter :
 }
 ~~~
 
-timestamp : 観測時点の日時  
+timestamp : 観測時点の日時(UTC)  
 observation : 観測地点  
 rainFall : 観測時点の降雨量[mm]  
