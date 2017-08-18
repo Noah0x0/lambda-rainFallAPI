@@ -18,7 +18,7 @@ Parameter :
 以下の Json を返します。
 ~~~
 {
-  "timestamp": "2017-08-12T12:50:00",
+  "timestamp": "2017-08-12T12:50:00Z",
   "observation": "石川県金沢市",
   "rainFall": "0.0"
 }
