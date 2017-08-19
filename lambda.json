@@ -1,0 +1,15 @@
+{
+  "name": "getRainFallS3",
+  "description": "降雨量を取得する",
+  "region": "ap-northeast-1",
+  "runtime": "python3.6",
+  "handler": "lambda_function.lambda_handler",
+  "role": "arn:aws:iam::657885203613:role/lambda_athena_s3",
+  "ignore": [
+    "circle\\.yml$",
+    ".git",
+    "/.*\\.pyc$"
+  ],
+  "timeout": 300,
+  "memory": 512
+}
